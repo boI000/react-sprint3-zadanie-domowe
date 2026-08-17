@@ -1,4 +1,5 @@
-import Button from "./Button/Button";
+import styles from "./FormSummary.module.css";
+import Button from "../Button/Button";
 
 function FormSummary({ submittedData, onClose }) {
   return (

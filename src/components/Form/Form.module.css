@@ -1,0 +1,108 @@
+.page {
+  min-height: 100vh;
+  background-color: #111315;
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.title {
+  color: #10b981;
+  margin-bottom: 24px;
+}
+
+.form {
+  width: 100%;
+  max-width: 520px;
+  background-color: #222426;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.subtitle {
+  color: #f59e0b;
+}
+
+.field {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #3b4658;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.optionGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkboxGroup {
+  background-color: #3b4658;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.choice {
+  display: block;
+  cursor: pointer;
+}
+
+.hiddenCheckbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choiceText {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background-color: #3b4658;
+}
+
+.hiddenCheckbox:checked + .choiceText {
+  background-color: #1683e8;
+}
+
+.experienceControls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.experienceRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+}
+
+.error {
+  color: #ff0404;
+  margin: 0px 4px 12px;
+  font-size: 12px;
+}
+
+.submitButtonWrapper button {
+  width: 100%;
+}
