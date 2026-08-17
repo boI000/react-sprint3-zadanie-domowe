@@ -81,6 +81,42 @@ function App() {
     console.log(data);
   };
 
+  if (submittedData) {
+    return (
+      <div>
+        <h1>Dane z formularza</h1>
+        <h4>Dane osobowe:</h4>
+        <p>Imię: {submittedData.firstName}</p>
+        <p>Nazwisko: {submittedData.lastName}</p>
+        <p>Email: {submittedData.email}</p>
+        <p>Telefon: {submittedData.phone}</p>
+        <h4>Preferencje kursu:</h4>
+        <p>Typ kursu: {submittedData.learningMode}</p>
+        <p>Preferowane technologie:</p>
+        <ul>
+          {submittedData.preferredTechnologies.map((technology) => (
+            <li key={technology}>{technology}</li>
+          ))}
+        </ul>
+        <h4>Doświadczenie w programowaniu:</h4>
+        {submittedData.hasProgrammingExperience ? (
+          <ul>
+            {submittedData.programmingExperience.map((experience) => {
+              <li key={experience}>
+                Technologia: {experience.technology}/{experience.level}
+              </li>;
+            })}
+          </ul>
+        ) : (
+          <p>Brak doświadczenia</p>
+        )}
+        <button type="button" onClick={() => setSubmittedData(null)}>
+          Zamknij
+        </button>
+      </div>
+    );
+  }
+
   return (
     <>
       <h1>Formularz zgłoszeniowy na kurs programowania</h1>
@@ -208,20 +244,6 @@ function App() {
         )}
         <button type="submit">Wyślij zgłoszenie</button>
       </form>
-
-      {submittedData && (
-        <div>
-          <h1>Dane z formularza</h1>
-          <h4>Dane osobowe:</h4>
-          <p>Imię: {submittedData.firstName}</p>
-          <p>Nazwisko: {submittedData.lastName}</p>
-          <p>Email: {submittedData.email}</p>
-          <p>Telefon: {submittedData.phone}</p>
-          <button type="button" onClick={() => setSubmittedData(null)}>
-            Zamknij
-          </button>
-        </div>
-      )}
     </>
   );
 }
