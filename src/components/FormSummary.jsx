@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 function FormSummary({ submittedData, onClose }) {
   return (
     <div>
@@ -18,8 +20,8 @@ function FormSummary({ submittedData, onClose }) {
       <h4>Doświadczenie w programowaniu:</h4>
       {submittedData.hasProgrammingExperience ? (
         <ul>
-          {submittedData.programmingExperience.map((experience) => (
-            <li key={experience}>
+          {submittedData.programmingExperience.map((experience, index) => (
+            <li key={index}>
               Technologia: {experience.technology} / poziom: {experience.level}
             </li>
           ))}
@@ -33,9 +35,7 @@ function FormSummary({ submittedData, onClose }) {
         alt="CV"
         width="120"
       ></img>
-      <button type="button" onClick={onClose}>
-        Zamknij
-      </button>
+      <Button onClick={onClose}>Zamknij</Button>
     </div>
   );
 }

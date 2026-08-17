@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useFieldArray } from "react-hook-form";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import "./App.css";
 import FormSummary from "./components/FormSummary";
+import Button from "./components/Button";
 
 function App() {
   const registrationFormSchema = z.object({
@@ -180,8 +180,7 @@ function App() {
         </section>
         {hasProgrammingExperience && (
           <>
-            <button
-              type="button"
+            <Button
               onClick={() => {
                 append({
                   technology: "",
@@ -191,7 +190,7 @@ function App() {
               }}
             >
               Dodaj doświadczenie
-            </button>
+            </Button>
             {experienceError && <p>{experienceError}</p>}
 
             {fields.map((field, index) => (
@@ -213,14 +212,12 @@ function App() {
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </select>
-                <button type="button" onClick={() => remove(index)}>
-                  Usuń
-                </button>
+                <Button onClick={() => remove(index)}>Usuń</Button>
               </section>
             ))}
           </>
         )}
-        <button type="submit">Wyślij zgłoszenie</button>
+        <Button type="submit">Wyślij zgłoszenie</Button>
       </form>
     </>
   );
