@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useFieldArray } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -31,21 +33,51 @@ function App() {
         (files) => ["image/jpeg", "image/png"].includes(files?.[0]?.type),
         "CV musi być plikiem .jpg lub .png",
       ),
+    hasProgrammingExperience: z.boolean(),
+    programmingExperience: z.array(
+      z.object({
+        technology: z.string(),
+        level: z.string(),
+      }),
+    ),
   });
 
   const {
     register,
     handleSubmit,
+    watch,
+    control,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(registrationFormSchema),
     defaultValues: {
       learningMode: "",
       preferredTechnologies: [],
+      hasProgrammingExperience: false,
+      programmingExperience: [],
     },
   });
 
+  const [experienceError, setExperienceError] = useState("");
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "programmingExperience",
+  });
+
+  const hasProgrammingExperience = watch("hasProgrammingExperience");
+
   const onFormSubmit = (data) => {
+    if (
+      data.hasProgrammingExperience &&
+      data.programmingExperience.length === 0
+    ) {
+      setExperienceError("Dodaj przynajmniej jedno doświadczenie");
+      return;
+    }
+
+    setExperienceError("");
+
     console.log(data);
   };
 
@@ -129,10 +161,51 @@ function App() {
         </section>
         <section>
           <h3>Doświadczenie w programowaniu</h3>
-          <input type="radio" />
+          <input type="checkbox" {...register("hasProgrammingExperience")} />
           <label>Czy masz doświadczenie w programowaniu?</label>
-          {/* expands a modal with selection */}
         </section>
+        {hasProgrammingExperience && (
+          <>
+            <button
+              type="button"
+              onClick={() => {
+                append({
+                  technology: "",
+                  level: "",
+                });
+                setExperienceError("");
+              }}
+            >
+              Dodaj doświadczenie
+            </button>
+            {experienceError && <p>{experienceError}</p>}
+
+            {fields.map((field, index) => (
+              <section key={field.id}>
+                <select
+                  {...register(`programmingExperience.${index}.technology`)}
+                >
+                  <option value="">Wybierz technologie</option>
+                  <option value={"JavaScript"}>JavaScript</option>
+                  <option value={"React"}>React</option>
+                  <option value={"Python"}>Python</option>
+                  <option value={"CSS"}>CSS</option>
+                </select>
+                <select {...register(`programmingExperience.${index}.level`)}>
+                  <option value="">Wybierz poziom</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                <button type="button" onClick={() => remove(index)}>
+                  Usuń
+                </button>
+              </section>
+            ))}
+          </>
+        )}
         <button type="submit">Wyślij zgłoszenie</button>
       </form>
     </>
