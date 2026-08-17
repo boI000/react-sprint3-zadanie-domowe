@@ -59,6 +59,7 @@ function App() {
   });
 
   const [experienceError, setExperienceError] = useState("");
+  const [submittedData, setSubmittedData] = useState(null);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -75,9 +76,8 @@ function App() {
       setExperienceError("Dodaj przynajmniej jedno doświadczenie");
       return;
     }
-
     setExperienceError("");
-
+    setSubmittedData(data);
     console.log(data);
   };
 
@@ -208,6 +208,20 @@ function App() {
         )}
         <button type="submit">Wyślij zgłoszenie</button>
       </form>
+
+      {submittedData && (
+        <div>
+          <h1>Dane z formularza</h1>
+          <h4>Dane osobowe:</h4>
+          <p>Imię: {submittedData.firstName}</p>
+          <p>Nazwisko: {submittedData.lastName}</p>
+          <p>Email: {submittedData.email}</p>
+          <p>Telefon: {submittedData.phone}</p>
+          <button type="button" onClick={() => setSubmittedData(null)}>
+            Zamknij
+          </button>
+        </div>
+      )}
     </>
   );
 }
