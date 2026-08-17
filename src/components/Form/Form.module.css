@@ -99,10 +99,14 @@
 
 .error {
   color: #ff0404;
-  margin: 0px 4px 12px;
+  margin: 4px 4px;
   font-size: 12px;
 }
 
 .submitButtonWrapper button {
   width: 100%;
+}
+
+.fieldGroup {
+  margin-bottom: 10px;
 }

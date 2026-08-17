@@ -57,42 +57,50 @@ function Form({ registrationFormSchema, onSubmit }) {
       >
         <section className={styles.section}>
           <h3 className={styles.subtitle}>Dane osobowe</h3>
-          <input
-            className={styles.field}
-            type="text"
-            placeholder="Imię"
-            {...register("firstName")}
-          />
-          {errors.firstName && (
-            <p className={styles.error}>{errors.firstName.message}</p>
-          )}
-          <input
-            className={styles.field}
-            type="text"
-            placeholder="Nazwisko"
-            {...register("lastName")}
-          />
-          {errors.lastName && (
-            <p className={styles.error}>{errors.lastName.message}</p>
-          )}
-          <input
-            className={styles.field}
-            type="email"
-            placeholder="E-mail"
-            {...register("email")}
-          />
-          {errors.email && (
-            <p className={styles.error}>{errors.email.message}</p>
-          )}
-          <input
-            className={styles.field}
-            type="tel"
-            placeholder="Numer telefonu"
-            {...register("phone")}
-          />
-          {errors.phone && (
-            <p className={styles.error}>{errors.phone.message}</p>
-          )}
+          <div className={styles.fieldGroup}>
+            <input
+              className={styles.field}
+              type="text"
+              placeholder="Imię"
+              {...register("firstName")}
+            />
+            {errors.firstName && (
+              <p className={styles.error}>{errors.firstName.message}</p>
+            )}
+          </div>
+          <div className={styles.fieldGroup}>
+            <input
+              className={styles.field}
+              type="text"
+              placeholder="Nazwisko"
+              {...register("lastName")}
+            />
+            {errors.lastName && (
+              <p className={styles.error}>{errors.lastName.message}</p>
+            )}
+          </div>
+          <div className={styles.fieldGroup}>
+            <input
+              className={styles.field}
+              type="email"
+              placeholder="E-mail"
+              {...register("email")}
+            />
+            {errors.email && (
+              <p className={styles.error}>{errors.email.message}</p>
+            )}
+          </div>
+          <div className={styles.fieldGroup}>
+            <input
+              className={styles.field}
+              type="tel"
+              placeholder="Numer telefonu"
+              {...register("phone")}
+            />
+            {errors.phone && (
+              <p className={styles.error}>{errors.phone.message}</p>
+            )}
+          </div>
         </section>
         <section className={styles.section}>
           <h3 className={styles.subtitle}>Preferencje kursu</h3>
