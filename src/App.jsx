@@ -6,10 +6,12 @@ import "./App.css";
 
 function App() {
   const registrationFormSchema = z.object({
-    firstName: z.string().min(3, "Imię musi składać się z conajmniej 3 znaków"),
+    firstName: z
+      .string()
+      .min(3, "Imię musi składać się z co najmniej 3 znaków"),
     lastName: z
       .string()
-      .min(3, "Nazwisko musi składać się z conajmniej 3 znaków"),
+      .min(3, "Nazwisko musi składać się z co najmniej 3 znaków"),
     email: z
       .string()
       .min(1, "Email jest wymagany")
@@ -22,6 +24,13 @@ function App() {
     preferredTechnologies: z
       .array(z.string())
       .min(1, "Proszę wybierz przynajmniej jedną technologię"),
+    cv: z
+      .any()
+      .refine((files) => files?.length === 1, "Dodaj CV")
+      .refine(
+        (files) => ["image/jpeg", "image.png"].includes(files?.[0]?.type),
+        "CV musi być plikiem .jpg lub .png",
+      ),
   });
 
   const {
@@ -116,6 +125,7 @@ function App() {
         <section>
           <h3>Dodaj swoje CV</h3>
           <input type="file" accept=".jpg,.jpeg,.png" {...register("cv")} />
+          {errors.cv && <p>{errors.cv.message}</p>}
         </section>
         <section>
           <h3>Doświadczenie w programowaniu</h3>
