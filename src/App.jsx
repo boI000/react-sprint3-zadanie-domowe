@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { z } from "zod";
 
-import "./App.css";
 import FormSummary from "./components/FormSummary/FormSummary";
 import Form from "./components/Form/Form";
 
