@@ -28,7 +28,7 @@ function App() {
       .any()
       .refine((files) => files?.length === 1, "Dodaj CV")
       .refine(
-        (files) => ["image/jpeg", "image.png"].includes(files?.[0]?.type),
+        (files) => ["image/jpeg", "image/png"].includes(files?.[0]?.type),
         "CV musi być plikiem .jpg lub .png",
       ),
   });
