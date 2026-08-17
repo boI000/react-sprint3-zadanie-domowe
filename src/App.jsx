@@ -1,122 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import { z } from "zod";
+
+import FormSummary from "./components/FormSummary/FormSummary";
+import Form from "./components/Form/Form";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const registrationFormSchema = z.object({
+    firstName: z
+      .string()
+      .min(3, "Imię musi składać się z co najmniej 3 znaków"),
+    lastName: z
+      .string()
+      .min(3, "Nazwisko musi składać się z co najmniej 3 znaków"),
+    email: z
+      .string()
+      .min(1, "Email jest wymagany")
+      .email("Podaj poprawny adres e-mail"),
+    phone: z
+      .string()
+      .min(1, "Numer telefonu jest wymagany")
+      .regex(/^\d{9}$/, "Numer telefonu musi mieć dokładnie 9 cyfr"),
+    learningMode: z.string().min(1, "Proszę wybierz formę nauki"),
+    preferredTechnologies: z
+      .array(z.string())
+      .min(1, "Proszę wybierz przynajmniej jedną technologię"),
+    cv: z
+      .any()
+      .refine((files) => files?.length === 1, "Dodaj CV")
+      .refine(
+        (files) => ["image/jpeg", "image/png"].includes(files?.[0]?.type),
+        "CV musi być plikiem .jpg lub .png",
+      ),
+    hasProgrammingExperience: z.boolean(),
+    programmingExperience: z.array(
+      z.object({
+        technology: z.string(),
+        level: z.string(),
+      }),
+    ),
+  });
+
+  const [submittedData, setSubmittedData] = useState(null);
+
+  if (submittedData) {
+    return (
+      <FormSummary
+        submittedData={submittedData}
+        onClose={() => setSubmittedData(null)}
+      />
+    );
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    <Form
+      registrationFormSchema={registrationFormSchema}
+      onSubmit={setSubmittedData}
+    />
+  );
 }
 
-export default App
+export default App;
