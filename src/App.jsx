@@ -101,15 +101,22 @@ function App() {
         <h4>Doświadczenie w programowaniu:</h4>
         {submittedData.hasProgrammingExperience ? (
           <ul>
-            {submittedData.programmingExperience.map((experience) => {
+            {submittedData.programmingExperience.map((experience) => (
               <li key={experience}>
-                Technologia: {experience.technology}/{experience.level}
-              </li>;
-            })}
+                Technologia: {experience.technology} / poziom:{" "}
+                {experience.level}
+              </li>
+            ))}
           </ul>
         ) : (
           <p>Brak doświadczenia</p>
         )}
+        <h4>Curriculum vitae:</h4>
+        <img
+          src={URL.createObjectURL(submittedData.cv[0])}
+          alt="CV"
+          width="120"
+        ></img>
         <button type="button" onClick={() => setSubmittedData(null)}>
           Zamknij
         </button>
@@ -139,9 +146,13 @@ function App() {
         <section>
           <h3>Preferencje kursu</h3>
           <label>Wybierz formę nauki: </label>
-          <input type="radio" value="onsite" {...register("learningMode")} />
+          <input
+            type="radio"
+            value="Stacjonarnie"
+            {...register("learningMode")}
+          />
           Stacjonarna
-          <input type="radio" value="online" {...register("learningMode")} />
+          <input type="radio" value="Online" {...register("learningMode")} />
           Online
           {errors.learningMode && <p>{errors.learningMode.message}</p>}
           <section>
