@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Button from "./Button";
+import Button from "./Button/Button";
 
 function Form({ registrationFormSchema, onSubmit }) {
   const {
@@ -70,7 +70,7 @@ function Form({ registrationFormSchema, onSubmit }) {
             value="Stacjonarnie"
             {...register("learningMode")}
           />
-          Stacjonarna
+          Stacjonarnie
           <input type="radio" value="Online" {...register("learningMode")} />
           Online
           {errors.learningMode && <p>{errors.learningMode.message}</p>}
@@ -133,6 +133,7 @@ function Form({ registrationFormSchema, onSubmit }) {
         {hasProgrammingExperience && (
           <>
             <Button
+              variant="success"
               onClick={() => {
                 append({
                   technology: "",
@@ -164,12 +165,16 @@ function Form({ registrationFormSchema, onSubmit }) {
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </select>
-                <Button onClick={() => remove(index)}>Usuń</Button>
+                <Button variant="remove" onClick={() => remove(index)}>
+                  Usuń
+                </Button>
               </section>
             ))}
           </>
         )}
-        <Button type="submit">Wyślij zgłoszenie</Button>
+        <Button variant="primary" type="submit">
+          Wyślij zgłoszenie
+        </Button>
       </form>
     </>
   );

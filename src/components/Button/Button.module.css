@@ -1,0 +1,27 @@
+.button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.primary {
+  background-color: #1683e8;
+  color: #fff;
+}
+
+.success {
+  background-color: #14a676;
+  color: #fff;
+}
+
+.remove {
+  background-color: #ef4444;
+  color: #fff;
+}
+
+.secondary {
+  background-color: #374151;
+  color: #fff;
+}

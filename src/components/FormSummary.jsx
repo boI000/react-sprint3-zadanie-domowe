@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "./Button/Button";
 
 function FormSummary({ submittedData, onClose }) {
   return (
@@ -35,7 +35,9 @@ function FormSummary({ submittedData, onClose }) {
         alt="CV"
         width="120"
       ></img>
-      <Button onClick={onClose}>Zamknij</Button>
+      <Button variant="secondary" onClick={onClose}>
+        Zamknij
+      </Button>
     </div>
   );
 }
