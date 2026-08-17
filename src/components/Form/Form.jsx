@@ -42,7 +42,6 @@ function Form({ registrationFormSchema, onSubmit }) {
     }
     setExperienceError("");
     onSubmit(data);
-    console.log(data);
   };
 
   return (
